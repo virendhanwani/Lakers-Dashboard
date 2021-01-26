@@ -1,14 +1,9 @@
 from re import template
-from plotly.graph_objs import layout
 import streamlit as st
 import pandas as pd
-from typing import List, Optional
-import markdown
-import io
 from nba_api.stats.endpoints import teamgamelog, teamdashboardbyopponent, teamdashboardbygeneralsplits
 import plotly.express as px
 import plotly.graph_objects as go
-import matplotlib.pyplot as plt
 import base64
 
 def main():
