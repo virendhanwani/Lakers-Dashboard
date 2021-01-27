@@ -68,8 +68,11 @@ def main():
     data_url = base64.b64encode(contents).decode("utf-8") 
     file_.close() 
     c1.markdown( f'<img src="data:image/png;base64,{data_url}" width="200px"> <span style="font-size:50px">DASHBOARD</span>', unsafe_allow_html=True, )
+    with c1.beta_expander('Created by Viren Dhanwani'):
+        st.markdown('I am a backend web developer in the phase of transitioning into Data Scientist or Data Analyst roles. I live in India and have been following NBA since school days. I started watching NBA due to Kobe Bryant and became a life long Laker Fan. You can connect with me on [LinkedIn](https://www.linkedin.com/in/virendhanwani/) and find the code repository [here](https://github.com/virendhanwani/Lakers-Dashboard). MAMBA FOREVER.')
     c1.header(f'Wins: {oppdf.W[0]}')
     c1.header(f'Losses: {oppdf.L[0]}')
+    c1.subheader("Game Prediction Coming Soon!")
     winpct_fig = px.line(df, x='GAME_DATE', y='W_PCT',template='plotly_white')
     winpct_fig.update_traces(line_color='#FDB827')
     winpct_fig.update_xaxes(title_text='',zeroline=False)
