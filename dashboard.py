@@ -8,22 +8,22 @@ import base64
 
 def main():
     gamelog = teamgamelog.TeamGameLog(team_id=1610612747, season='2020-21', season_type_all_star='Regular Season')
-    oppdetails = teamdashboardbyopponent.TeamDashboardByOpponent(measure_type_detailed_defense='Opponent', season_type_all_star='Regular Season',per_mode_detailed='PerGame',season='2020-21', team_id=1610612747)
-    teamdetails = teamdashboardbygeneralsplits.TeamDashboardByGeneralSplits(measure_type_detailed_defense='Base', season_type_all_star='Regular Season',per_mode_detailed='PerGame',season='2020-21', team_id=1610612747)
+    # oppdetails = teamdashboardbyopponent.TeamDashboardByOpponent(measure_type_detailed_defense='Opponent', season_type_all_star='Regular Season',per_mode_detailed='PerGame',season='2020-21', team_id=1610612747)
+    # teamdetails = teamdashboardbygeneralsplits.TeamDashboardByGeneralSplits(measure_type_detailed_defense='Base', season_type_all_star='Regular Season',per_mode_detailed='PerGame',season='2020-21', team_id=1610612747)
     df = gamelog.get_data_frames()[0]
     df['GAME_DATE'] = pd.to_datetime(df['GAME_DATE'])
     df = df.sort_values(by = 'GAME_DATE')
     df.reset_index(inplace=True)
     del df['index']
-    oppdf = oppdetails.get_data_frames()[0]
-    teamdf = teamdetails.get_data_frames()[0]
+    # oppdf = oppdetails.get_data_frames()[0]
+    # teamdf = teamdetails.get_data_frames()[0]
     pct_cols = ['W_PCT', 'FG_PCT', 'FG3_PCT', 'FT_PCT']
     opp_pct_cols = ['OPP_FG_PCT', 'OPP_FG3_PCT', 'OPP_FT_PCT']
     for col in pct_cols:
         df[col] = df[col] * 100
-        teamdf[col] = teamdf[col] * 100
-    for col in opp_pct_cols:
-        oppdf[col] = oppdf[col] * 100
+        # teamdf[col] = teamdf[col] * 100
+    # for col in opp_pct_cols:
+    #     oppdf[col] = oppdf[col] * 100
     df['Opponent'] = df['MATCHUP'].str.strip().str[-3:]
     df['location'] = df['MATCHUP'].apply(lambda x: 'away' if x[-5] == '@' else 'home')
     layout = go.Layout(
@@ -70,8 +70,8 @@ def main():
     c1.markdown( f'<img src="data:image/png;base64,{data_url}" width="200px"> <span style="font-size:50px">DASHBOARD</span>', unsafe_allow_html=True, )
     with c1.beta_expander('Created by Viren Dhanwani'):
         st.markdown('I am a backend web developer in the phase of transitioning into Data Scientist or Data Analyst roles. I live in India and have been following NBA since school days. I started watching NBA due to Kobe Bryant and became a life long Laker Fan. You can connect with me on [LinkedIn](https://www.linkedin.com/in/virendhanwani/) and find the code repository [here](https://github.com/virendhanwani/Lakers-Dashboard). MAMBA FOREVER.')
-    c1.header(f'Wins: {oppdf.W[0]}')
-    c1.header(f'Losses: {oppdf.L[0]}')
+    # c1.header(f'Wins: {oppdf.W[0]}')
+    # c1.header(f'Losses: {oppdf.L[0]}')
     c1.subheader("Game Prediction Coming Soon!")
     winpct_fig = px.line(df, x='GAME_DATE', y='W_PCT',template='plotly_white')
     winpct_fig.update_traces(line_color='#FDB827')
@@ -100,8 +100,8 @@ def main():
         win_figs(df[df['WL'] == 'W'],c3,c4,c5,c6, layout)
     elif classifier == 'Losses':
         loss_figs(df[df['WL'] == 'L'],c3,c4,c5,c6, layout)
-    with st.beta_expander("Stats Comparison"):
-        opp_figs(teamdf,oppdf)
+    # with st.beta_expander("Stats Comparison"):
+    #     opp_figs(teamdf,oppdf)
 
 def home_figs(home_df,c3,c4,c5,c6, layout):    
     home_fgpct_fig = px.line(home_df, x='GAME_DATE', y=['FG_PCT','FG3_PCT','FT_PCT'],template='plotly_white', color_discrete_map={'FG_PCT': '#FDB827','FG3_PCT': '#542583', 'FT_PCT': '#000000'})
