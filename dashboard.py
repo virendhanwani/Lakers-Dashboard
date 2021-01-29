@@ -1,7 +1,8 @@
 from re import template
 import streamlit as st
 import pandas as pd
-from nba_api.stats.endpoints import teamgamelog, teamdashboardbyopponent, teamdashboardbygeneralsplits
+# from nba_api.stats.endpoints import teamgamelog, teamdashboardbyopponent, teamdashboardbygeneralsplits
+import teamgamelog
 import plotly.express as px
 import plotly.graph_objects as go
 import base64
