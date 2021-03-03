@@ -20,7 +20,7 @@ except ImportError:
 try:
     from debug import PROXY
 except ImportError:
-    PROXY = ''
+    PROXY = os.environ['QUOTAGUARD_URL']
 
 
 if DEBUG:
